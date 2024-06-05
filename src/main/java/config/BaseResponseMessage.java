@@ -11,8 +11,13 @@ public enum BaseResponseMessage {
 
     // 게신판 기능 3000
     BOARD_GET_LIST_SUCCESS(true, 3000, "게시글 목록 조회 성공"),
-    BOARD_GET_LIST_FAIL_EMPTY(false, 3001, "조회된 게시글이 없습니다.")
+    BOARD_GET_LIST_FAIL_EMPTY(false, 3001, "조회된 게시글이 없습니다."),
+
+    // 유저 정보 수정 기능
+    USER_EDIT_SUCCESS(true, 1200, "회원 정보 수정을 완료하였습니다"),
+    USER_EDIT_FAIL(false, 1201, "회원 정보 수정에 실패하였습니다")
     ;
+
     private Boolean success;
     private Integer code;
     private String message;

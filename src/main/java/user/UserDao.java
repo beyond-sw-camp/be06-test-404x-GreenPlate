@@ -1,36 +1,37 @@
-package member;
+package user;
 
 import com.zaxxer.hikari.HikariDataSource;
 import config.DataSourceConfig;
-import member.request.PostMemberReq;
+import user.request.PostUserEditReq;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class MemberDao {
+public class UserDao {
     HikariDataSource dataSourceConfig;
 
-    MemberDao() {
+    UserDao() {
         dataSourceConfig = DataSourceConfig.getInstance();
     }
 
-    public Boolean create(PostMemberReq dto) {
+    public Boolean edit(PostUserEditReq dto) {
         Connection connection = null;
         PreparedStatement pstmt = null;
         Integer result = null;
-        try {
+
+        try{
             connection = dataSourceConfig.getConnection();
-            pstmt = connection.prepareStatement("INSERT INTO web.member (id, pw, name) VALUES (?, ?, ?)");
-            pstmt.setString(1, dto.getId());
-            pstmt.setString(2, dto.getPw());
-            pstmt.setString(3, dto.getName());
+            pstmt = connection.prepareStatement("UPDATE USER\n" +
+                            "SET PW = ?, NICKNAME = ?, BIRTHDAY = ?, MODIFIED_DATE = NOW()\n" +
+                            "WHERE EMAIL = ?;");
+            pstmt.setString(1, dto.getPw());
+            pstmt.setString(2, dto.getNickname());
+            pstmt.setString(3, dto.getBirthday());
+            pstmt.setString(4, dto.getEmail());
             result = pstmt.executeUpdate();
 
-            if (result > 0) {
-                return true;
-            }
+            if (result > 0) { return true; }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

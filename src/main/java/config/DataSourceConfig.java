@@ -13,9 +13,8 @@ public class DataSourceConfig {
     public static HikariDataSource getInstance() {
         if (dataSource == null) {
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl("jdbc:mariadb://10.10.10.10:3306/web");
-            config.setUsername("sjb");
-            config.setPassword("qwer1234");
+            config.setJdbcUrl("jdbc:mariadb://192.168.75.10:3306/GREENPLATE");
+            config.setUsername("kdy");
             config.setMaximumPoolSize(10);
             config.setMinimumIdle(5);
             dataSource = new HikariDataSource(config);
